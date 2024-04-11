@@ -1,6 +1,6 @@
-const ticketData = require('./sample.json')
-const sqlite3 = require('sqlite3').verbose()
-const fs = require('fs')
+import ticketData from './sample.json' assert { type: "json" };
+import sqlite3 from 'sqlite3'
+import fs from 'fs'
 
 // Specify the path to the SQLite database file
 const dbFilePath = ('./database.db')
@@ -18,8 +18,7 @@ if (!fs.existsSync(dbFilePath)) {
 // const db = new sqlite3.Database(':memory:') // You can change ':memory:' to a file path to create a persistent database
 const db = new sqlite3.Database(dbFilePath)
 
-// Define your JSON array of tickets and users
-
+// Define your JSON array of users
 const userData = [
     {
         "id": 1,

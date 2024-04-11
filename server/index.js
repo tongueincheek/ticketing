@@ -5,9 +5,8 @@
 
 import express from 'express'
 const app = express()
-import ticketData from './sample.json' assert { type: "json" };
 const port = 3000
-import {  getAllTickets, getTicketsByUserId, getClosedTickets, getOpenTickets, getTicketsBySeverity, getTicketsCreatedLast7Days, getTicketsCreatedMoreThan7DaysAgo, searchTickets } from './databaseQueries.js'
+import * as databaseQueries from './databaseQueries.js'
 
 app.get('/', (req, res) => {
   res.sendStatus(200)
@@ -15,17 +14,29 @@ app.get('/', (req, res) => {
 
 app.get('/tickets', (req, res) => {
     // GET /tickets
-    getAllTickets().then(tickets => res.send(tickets))
+    databaseQueries.getAllTickets().then(tickets => res.send(tickets))
 })
 
 app.get('/tickets/open', (req, res) => {
     // GET /tickets/open
-    getOpenTickets().then(tickets => res.send(tickets))
+    databaseQueries.getOpenTickets().then(tickets => res.send(tickets))
 })
 
 app.get('/tickets/closed', (req, res) => {
   // GET /tickets/closed
-  getClosedTickets().then(tickets => res.send(tickets))
+  databaseQueries.getClosedTickets().then(tickets => res.send(tickets))
+})
+
+app.get('/tickets/byuser', (req, res) => {
+  // GET /tickets/byuser?userid=1
+  const { userid } = req.query
+  databaseQueries.getTicketsByUserId(userid).then(tickets => res.send(tickets))
+})
+
+app.get('/tickets/byseverity', (req, res) => {
+  // GET /tickets/byseverity?severity=1
+  const { severity } = req.query
+  databaseQueries.getTicketsBySeverity(severity).then(tickets => res.send(tickets))
 })
 
 app.listen(port, () => {
