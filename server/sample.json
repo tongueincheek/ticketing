@@ -2,6 +2,7 @@
     {
         "id": "1",
         "assigned_to": 1,
+        "requestor": 1,
         "title": "Ticket 1",
         "description": "Description of Ticket 1",
         "status": "Open",
@@ -35,6 +36,7 @@
     {
         "id": "2",
         "assigned_to": 3,
+        "requestor": 1,
         "title": "Ticket 2",
         "description": "Description of Ticket 2",
         "status": "Open",
@@ -57,6 +59,7 @@
     {
         "id": "3",
         "assigned_to": 2,
+        "requestor": 1,
         "title": "Ticket 3",
         "description": "Description of Ticket 3",
         "status": "Open",
@@ -69,6 +72,7 @@
     {
         "id": "4",
         "assigned_to": 4,
+        "requestor": 1,
         "title": "Ticket 4",
         "description": "Description of Ticket 4",
         "status": "Closed",
@@ -97,6 +101,7 @@
     {
         "id": "5",
         "assigned_to": 4,
+        "requestor": 1,
         "title": "Ticket 5",
         "description": "Description of Ticket 5",
         "status": "Closed",
@@ -130,6 +135,7 @@
     {
         "id": "6",
         "assigned_to": 2,
+        "requestor": 1,
         "title": "Ticket 6",
         "description": "Description of Ticket 6",
         "status": "Open",
@@ -152,6 +158,7 @@
     {
         "id": "7",
         "assigned_to": 3,
+        "requestor": 1,
         "title": "Ticket 7",
         "description": "Description of Ticket 7",
         "status": "Open",
@@ -180,6 +187,7 @@
     {
         "id": "8",
         "assigned_to": 1,
+        "requestor": 1,
         "title": "Ticket 8",
         "description": "Description of Ticket 8",
         "status": "Closed",
@@ -213,6 +221,7 @@
     {
         "id": "9",
         "assigned_to": 4,
+        "requestor": 1,
         "title": "Ticket 9",
         "description": "Description of Ticket 9",
         "status": "Open",
@@ -241,6 +250,7 @@
     {
         "id": "10",
         "assigned_to": 3,
+        "requestor": 1,
         "title": "Ticket 10",
         "description": "Description of Ticket 10",
         "status": "Closed",
@@ -274,6 +284,7 @@
     {
         "id": "11",
         "assigned_to": 2,
+        "requestor": 1,
         "title": "Ticket 11",
         "description": "Description of Ticket 11",
         "status": "Open",
@@ -286,6 +297,7 @@
     {
         "id": "12",
         "assigned_to": 2,
+        "requestor": 1,
         "title": "Ticket 12",
         "description": "Description of Ticket 12",
         "status": "Open",
@@ -298,6 +310,7 @@
     {
         "id": "13",
         "assigned_to": 1,
+        "requestor": 1,
         "title": "Ticket 13",
         "description": "Description of Ticket 13",
         "status": "Closed",
@@ -326,6 +339,7 @@
     {
         "id": "14",
         "assigned_to": 3,
+        "requestor": 1,
         "title": "Ticket 14",
         "description": "Description of Ticket 14",
         "status": "Open",
@@ -347,6 +361,7 @@
     },
     {
         "id": "15",
+        "requestor": 1,
         "assigned_to": 4,
         "title": "Ticket 15",
         "description": "Description of Ticket 15",

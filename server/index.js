@@ -4,9 +4,12 @@
 // Last updated 4/11/2024
 
 import express from 'express'
+import bodyParser from 'body-parser'
+import * as databaseQueries from './databaseQueries.js'
+
 const app = express()
 const port = 9000
-import * as databaseQueries from './databaseQueries.js'
+app.use(bodyParser.json())
 
 app.get('/', (req, res) => {
   res.send(`
@@ -46,10 +49,18 @@ app.get('/tickets/closed', (req, res) => {
 
 app.get('/tickets/byuser', (req, res) => {
   // GET /tickets/byuser?userid=1
-  const { userid } = req.query
+  const { userid, status } = req.query
+
   databaseQueries.getTicketsByUserId(userid).then(tickets => {
-    console.log(`User ${userid} has ${tickets.length} tickets`)
-    res.send(tickets)
+    if (status) {
+      const statusTickets = tickets.filter(ticket =>
+        ticket.status.toUpperCase() == status.toUpperCase())
+        console.log(`User ${userid} has ${tickets.length} ${status} tickets`)
+        res.send(statusTickets)
+    } else {
+      console.log(`User ${userid} has ${tickets.length} tickets`)
+      res.send(tickets)
+      }
     }
   )
 })
@@ -62,6 +73,35 @@ app.get('/tickets/byseverity', (req, res) => {
       res.send(tickets)
     }
   )
+})
+
+app.get('/ticket/:ticketId', (req, res) => {
+  const { ticketId } = req.params
+  databaseQueries.getTicketWithDetails(ticketId).then(ticket => {
+    console.log(ticket)
+    res.send(ticket)
+  })
+})
+
+app.get('/comments/latest', (req, res) => {
+  const { status } = req.query
+
+  databaseQueries.getLatestCommentsWithTicketData().then(comments => {
+    res.send(comments)
+  }).catch(err => {
+    res.send(err)
+  })
+})
+
+app.post('/comment/:id/update', (req, res) => {
+  const { id } = req.params
+  const { comment_content } = req.body
+
+  // { "comment_id": 1, "comment_content": "Updated comment" }
+  // "Content-Type: application/json"
+  
+  console.log(`Updating comment_id: ${id} with message: ${comment_content}`)
+  databaseQueries.updateComment(1, comment_content).then(message => res.send(message)).catch(err => console.error("Error updating comment:", err));
 })
 
 app.listen(port, () => {

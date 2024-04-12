@@ -4,7 +4,8 @@
 |          Tickets          |          Users                  |
 +---------------------------+---------------------------------+
 | - id (INTEGER, PRIMARY KEY)| - id (INTEGER, PRIMARY KEY)    |
-| - user_id (INTEGER, FK)   | - name (TEXT)                   |
+| - user_id (INTEGER, FK)   |  - name (TEXT)                  |
+| - requestor_id (TEXT)     |  - email (TEXT)                 |
 | - title (TEXT)            |                                 |
 | - description (TEXT)      |                                 |
 | - status (TEXT)           |                                 |
