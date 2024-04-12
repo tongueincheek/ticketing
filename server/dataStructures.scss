@@ -1,0 +1,25 @@
++-------------------------------------------------------------+
+|                        Data Structures                      |
++---------------------------+---------------------------------+
+|          Tickets          |          Users                  |
++---------------------------+---------------------------------+
+| - id (INTEGER, PRIMARY KEY)| - id (INTEGER, PRIMARY KEY)    |
+| - user_id (INTEGER, FK)   | - name (TEXT)                   |
+| - title (TEXT)            |                                 |
+| - description (TEXT)      |                                 |
+| - status (TEXT)           |                                 |
+| - priority (TEXT)         |                                 |
+| - creation_date (TEXT)    |                                 |
+| - closure_date (TEXT)     |                                 |
++---------------------------+---------------------------------+
+|           Tasks           |           Comments              |
++---------------------------+---------------------------------+
+| - id (INTEGER, PRIMARY KEY)| - id (INTEGER, PRIMARY KEY)    |
+| - user_id (INTEGER, FK)   | - ticket_id (INTEGER, FK)       |
+| - ticket_id (INTEGER, FK) | - user_id (INTEGER, FK)         |
+| - description (TEXT)      | - comment (TEXT)                |
+| - status (TEXT)           | - creation_date (TEXT)          |
+| - creation_date (TEXT)    |                                 |
+| - due_date (TEXT)         |                                 |
+| - closure_date (TEXT)     |                                 |
++---------------------------+---------------------------------+
