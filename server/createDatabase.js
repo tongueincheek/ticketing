@@ -1,4 +1,6 @@
-import ticketData from './sample.json' assert { type: "json" };
+import ticketData from './tickets_data.json' assert { type: "json" };
+import userData from './users_data.json' assert { type: "json" };
+
 import sqlite3 from 'sqlite3'
 import fs from 'fs'
 
@@ -17,26 +19,6 @@ if (!fs.existsSync(dbFilePath)) {
 // Create a new SQLite database connection
 // const db = new sqlite3.Database(':memory:') // You can change ':memory:' to a file path to create a persistent database
 const db = new sqlite3.Database(dbFilePath)
-
-// Define your JSON array of users
-const userData = [
-    {
-        "id": 1,
-        "name": "User1"
-    },
-    {
-        "id": 2,
-        "name": "User2"
-    },
-    {
-        "id": 3,
-        "name": "User3"
-    },
-    {
-        "id": 4,
-        "name": "User4"
-    }
-]
 
 // Create tables for tickets and users
 db.serialize(() => {

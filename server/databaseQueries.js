@@ -20,6 +20,7 @@
 // getLatestComments().then(comments => console.log("Latest comments:", comments)).catch(err => console.error("Error retrieving latest comments:", err));
 // updateComment(1, "Updated comment text").then(message => console.log(message)).catch(err => console.error("Error updating comment:", err));
 // updateUserNameAndEmail(1, "New Name", "newemail@example.com").then(message => console.log(message)).catch(err => console.error("Error updating user name and email:", err));
+// getUserById(1).then(user => console.log("User information:", user)).catch(err => console.error("Error retrieving user information:", err));
 
 import sqlite3 from 'sqlite3'
 import fs from 'fs'
@@ -96,9 +97,10 @@ export const getOpenTickets = () => {
 
 // Function to retrieve tickets by severity
 export const getTicketsBySeverity = (severity) => {
-    return new Promise((resolve, reject) => {
+    const Severity = ['LOW', 'MEDIUM', 'HIGH', 'SEVERE'];
 
-        db.all("SELECT * FROM tickets WHERE priority = ?", [severity], (err, rows) => {
+    return new Promise((resolve, reject) => {
+        db.all("SELECT * FROM tickets WHERE priority = ?", Severity[severity], (err, rows) => {
             if (err) {
                 reject(err);
             } else {
@@ -358,7 +360,6 @@ export const updateComment = (commentId, updatedComment) => {
 const updateUserNameAndEmail = (userId, newName, newEmail) => {
     return new Promise((resolve, reject) => {
 
-
         // Update the user's email and name in the database
         const stmt = db.prepare(`UPDATE users SET name = ?, email = ? WHERE id = ?`);
         stmt.run(newName, newEmail, userId, function(err) {
@@ -369,5 +370,96 @@ const updateUserNameAndEmail = (userId, newName, newEmail) => {
             }
         });
         stmt.finalize();
+    });
+};
+
+export const getUserById = (userId) => {
+    return new Promise((resolve, reject) => {
+
+        // Execute SQL query to select user by ID
+        db.get("SELECT * FROM users WHERE id = ?", [userId], (err, row) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(row); // Resolve with user information
+            }
+        });
+    });
+};
+
+// Function to update a user's information by ID
+export const updateUserById = (userId, newData) => {
+    return new Promise((resolve, reject) => {
+
+        // Execute SQL query to update user information
+        db.run(`UPDATE users SET name = ?, email = ? WHERE id = ?`, [newData.name, newData.email, userId], function(err) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(`User with ID ${userId} updated successfully.`);
+            }
+        });
+    });
+};
+
+// Function to retrieve a comment by comment ID
+export const getCommentById = (commentId) => {
+    return new Promise((resolve, reject) => {
+
+        // Execute SQL query to select comment by ID
+        db.get("SELECT * FROM comments WHERE id = ?", [commentId], (err, row) => {
+            if (err) {
+                reject(err);
+            } else {
+                if (row) {
+                    resolve(row); // Resolve with comment information
+                } else {
+                    resolve(null); // Comment not found
+                }
+            }
+        });
+    });
+};
+
+// Function to fetch comments by ticket ID
+export const getCommentsByTicketId = (ticketId) => {
+    return new Promise((resolve, reject) => {
+
+        // Execute SQL query to select comments by ticket ID
+        db.all("SELECT * FROM comments WHERE ticket_id = ?", [ticketId], (err, rows) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(rows); // Resolve with array of comment information
+            }
+        });
+    });
+};
+
+// Function to fetch last 20 comments by user ID
+export const getLastCommentsByUserId = (userId, count) => {
+    return new Promise((resolve, reject) => {
+
+        // Execute SQL query to select last 20 comments by user ID
+        db.all("SELECT * FROM comments WHERE user_id = ? ORDER BY creation_date DESC LIMIT ?", [userId, count], (err, rows) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(rows); // Resolve with array of comment information
+            }
+        });
+    });
+};
+
+// Function to retrieve all tickets as JSON
+export const getAllTasks = () => {
+    return new Promise((resolve, reject) => {
+        db.all("SELECT * FROM tasks", (err, rows) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(rows);
+            }
+        });
     });
 };
